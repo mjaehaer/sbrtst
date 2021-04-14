@@ -13,10 +13,18 @@ database = result.path[1:]
 hostname = result.hostname
 port = result.port
 
+query_tables = '''
+	SELECT distinct tablename
+FROM pg_catalog.pg_tables
+WHERE schemaname != 'pg_catalog' AND 
+    schemaname != 'information_schema';	
+'''
+
 query_columns = '''
 	SELECT table_schema,
        table_name,
-       column_name
+       column_name,
+	   data_type
 from information_schema.columns
 where table_schema not in ('information_schema', 'pg_catalog')
 order by table_schema, 
@@ -69,6 +77,14 @@ query_views = '''
 columns = []
 fk = []
 tblViews = []
+alltables = []
+
+with closing(psycopg2.connect(database = database, user = username, password = password, host = hostname, port = port)) as conn:
+	with conn.cursor() as cursor:
+		cursor.execute(query_tables)
+		for row in cursor:
+			alltables.append(row)
+print(alltables)
 
 with closing(psycopg2.connect(database = database, user = username, password = password, host = hostname, port = port)) as conn:
 	with conn.cursor() as cursor:
@@ -108,6 +124,14 @@ with closing(psycopg2.connect(database = database, user = username, password = p
 		for row in cursor:
 			tblViews.append(row)
 # print(tblViews)			
-print('tblViews \n')
+# print('tblViews \n')
 simple_table(tables_1,tables_2, fk, tblViews)
+z = 0
+# print(columns)
+with open("examplle.txt",'w') as file:
+	for x in alltables:
+		file.write("TABLE  " + x[z] + '\n')
+		for i in columns:
+			if x[z] == i[1] and i[0] == 'public':
+				file.write("COLUMN    " + str(i[2]) + "    " +  str(i[3]) + '\n')
 print("pdf_saved")

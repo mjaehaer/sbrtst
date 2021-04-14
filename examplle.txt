@@ -1,0 +1,12 @@
+TABLE  order_items
+COLUMN    product_no    integer
+COLUMN    order_id    integer
+COLUMN    quantity    integer
+COLUMN    testing    integer
+TABLE  orders
+COLUMN    order_id    integer
+COLUMN    shipping_address    text
+TABLE  products
+COLUMN    product_no    integer
+COLUMN    name    text
+COLUMN    price    numeric

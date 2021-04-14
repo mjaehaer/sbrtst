@@ -5,7 +5,7 @@ from reportlab.pdfgen import canvas
 
 def simple_table(tables_1,tables_2,fk, tblViews):
     # print(fk)
-    canv = canvas.Canvas("phello.pdf", pagesize=landscape(A4))    
+    canv = canvas.Canvas("example.pdf", pagesize=landscape(A4))    
     coords = ([50, 450], [200, 450], [50, 300], [200, 300], [50, 150], [200, 150], [350, 450], [500, 450],[350, 300], [500, 300],[350, 150], [500, 150])
 
     def drawTable(table, cX, cY, targetcell, tblViews):
@@ -50,7 +50,7 @@ def simple_table(tables_1,tables_2,fk, tblViews):
         toDraw.append(getTable(i[0],i[1]))
         toDraw.append(getTable2(i[3],i[4]))
     
-    print(tblViews)
+    # print(tblViews)
     targetCells = []
     g = 0
     for x in fk:
@@ -61,7 +61,7 @@ def simple_table(tables_1,tables_2,fk, tblViews):
     # print(targetCells)
     z = 0 
     for x in toDraw:
-        print(x)
+        # print(x)
         drawTable(x, coords[z][0], coords[z][1], targetCells[z], tblViews) 
         z+=1
 
