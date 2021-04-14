@@ -101,12 +101,13 @@ for i in tables_2:
 for x in tables_1:
 	if x in tables_1:
 		tables_1.remove(x)
-print(fk)
+# print(fk)
 with closing(psycopg2.connect(database = database, user = username, password = password, host = hostname, port = port)) as conn:
 	with conn.cursor() as cursor:
 		cursor.execute(query_views)
 		for row in cursor:
-			tblViews.append(row)			
+			tblViews.append(row)
+# print(tblViews)			
 print('tblViews \n')
-simple_table(tables_1,tables_2, fk)
+simple_table(tables_1,tables_2, fk, tblViews)
 print("pdf_saved")
