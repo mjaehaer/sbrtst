@@ -27,13 +27,16 @@ def simple_table(tables_1,tables_2,fk):
         t=Table(data,int(len(data[0]))*[1.3*inch], 13)
         t.setStyle(TableStyle([
             ('BACKGROUND',(0,0),(0,0),colors.gray),
-            # ('BACKGROUND',(0,0),(1,idx),colors.yellow),
+            ('BACKGROUND',(0,idx),(0,idx),colors.yellow),
             ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
             ('BOX', (0,0), (-1,-1), 0.25, colors.black),
             ]))
-        
+        t.setStyle(TableStyle([
+            ('BACKGROUND',(0,idx),(0,idx),colors.yellow)
+            ]))
         t.wrap(0, 0)
         t.drawOn(canv, cX, cY)
+        
 
     def getTable(arg1,arg2):
         for x in tables_1:
@@ -48,12 +51,20 @@ def simple_table(tables_1,tables_2,fk):
     for i in fk:
         toDraw.append(getTable(i[0],i[1]))
         toDraw.append(getTable2(i[3],i[4]))
-    z = 0
+    
 
-    # print(toDraw)
-
+    print(toDraw)
+    targetCells = []
+    g = 0
+    for x in fk:
+        targetCells.append(fk[g][2])
+        targetCells.append(fk[g][5]) 
+        g+=1
+        
+    print(targetCells)
+    z = 0 
     for x in toDraw:
-        drawTable(x, coords[z][0], coords[z][1], fk[x][2]) 
+        drawTable(x, coords[z][0], coords[z][1], targetCells[z]) 
         z+=1
 
     canv.save()
