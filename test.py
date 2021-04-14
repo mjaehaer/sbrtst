@@ -20,12 +20,14 @@ def simple_table(tables_1,tables_2,fk):
         print(targetcell)
         # print(data)
         idx = data.index([targetcell])
+        print(data)
+        print(idx)
         
              
-        t=Table(data,int(len(table[0]))*[1.3*inch], 13)
+        t=Table(data,int(len(data[0]))*[1.3*inch], 13)
         t.setStyle(TableStyle([
-            ('BACKGROUND',(0,0),(4,0),colors.gray),
-            ('BACKGROUND',(0,0),(-1,idx),colors.yellow),
+            ('BACKGROUND',(0,0),(0,0),colors.gray),
+            # ('BACKGROUND',(0,0),(1,idx),colors.yellow),
             ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
             ('BOX', (0,0), (-1,-1), 0.25, colors.black),
             ]))
@@ -48,10 +50,10 @@ def simple_table(tables_1,tables_2,fk):
         toDraw.append(getTable2(i[3],i[4]))
     z = 0
 
-    print(toDraw)
+    # print(toDraw)
 
     for x in toDraw:
-        drawTable(x, coords[z][0], coords[z][1], x[2]) 
+        drawTable(x, coords[z][0], coords[z][1], fk[x][2]) 
         z+=1
 
     canv.save()
