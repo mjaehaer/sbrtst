@@ -17,13 +17,8 @@ def simple_table(tables_1,tables_2,fk):
                 y+=1
             except(IndexError):
                 break
-        print(targetcell)
-        # print(data)
-        idx = data.index([targetcell])
-        print(data)
-        print(idx)
-        
-             
+       
+        idx = data.index([targetcell])             
         t=Table(data,int(len(data[0]))*[1.3*inch], 13)
         t.setStyle(TableStyle([
             ('BACKGROUND',(0,0),(0,0),colors.gray),
@@ -36,7 +31,6 @@ def simple_table(tables_1,tables_2,fk):
             ]))
         t.wrap(0, 0)
         t.drawOn(canv, cX, cY)
-        
 
     def getTable(arg1,arg2):
         for x in tables_1:
@@ -52,7 +46,6 @@ def simple_table(tables_1,tables_2,fk):
         toDraw.append(getTable(i[0],i[1]))
         toDraw.append(getTable2(i[3],i[4]))
     
-
     print(toDraw)
     targetCells = []
     g = 0
